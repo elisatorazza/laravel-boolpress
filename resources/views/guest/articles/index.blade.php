@@ -17,7 +17,7 @@
                         <td>{{$article->title}}</td>
                         <td>{{$article->user_id}}</td>
                         <td>{{$article->abstract}}</td>
-                        <td><a href="{{route('article.show', $article)}}">Details</a></td>
+                        <td><a href="{{route('articles.show', $article)}}">Details</a></td>
                     </tr>
                 @endforeach
             </tbody>

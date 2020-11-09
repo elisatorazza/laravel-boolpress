@@ -14,11 +14,11 @@ class ArticleController extends Controller
         return view('guest.articles.index', compact('articles'));
     }
 
-    public function show()
+    public function show($id)
     {
-        $articles = Article::all();
+        $article = Article::find($id);
 
-        return view('guest.articles.index', compact('articles'));
+        return view('guest.articles.show', compact('article'));
     }
 
 }

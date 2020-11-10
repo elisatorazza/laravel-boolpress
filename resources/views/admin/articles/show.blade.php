@@ -17,6 +17,7 @@
                     <td>{{$article->title}}</td>
                     <td>{{$article->content}}</td>
                     <td>{{$article->abstract}}</td>
+                    <td><img src="{{asset('storage/'.$article->image)}}" alt="Immagine articolo"></td>
                 </tr>
             </tbody>
         </table>

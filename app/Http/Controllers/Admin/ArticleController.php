@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -31,7 +32,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.articles.create');
     }
 
     /**
@@ -42,7 +43,28 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $article = $request->all();
+        //$user = Auth::id(); Salvo in una variabile l'id dell'utente che sta inserendo l'articolo, oppure lo richiamo nella creazione della nuova istanza, senza salvarlo in una variabile(vd. sotto)
+
+        $request->validate([
+            "title" => "required",
+            "slug" => "required|unique:articles",
+            "content" => "required",
+            "image" => "image",
+        ]); 
+
+        $path = Storage::disk('public')->put('images', $article['image']);
+
+        $newArticle = new Article;
+        $newArticle->user_id = Auth::id();
+        $newArticle->title = $article["title"];
+        $newArticle->slug = $article["slug"];
+        $newArticle->content = $article["content"];
+        $newArticle->abstract = $article["abstract"];
+        $newArticle->image = $path;
+        $newArticle->save();
+
+        return redirect()->route('admin.article.show', $newArticle);
     }
 
     /**

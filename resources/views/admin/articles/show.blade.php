@@ -13,11 +13,11 @@
             </tr>
             </thead>
             <tbody>
-                    <tr>
-                        <td>{{$article->title}}</td>
-                        <td>{{$article->content}}</td>
-                        <td>{{$article->abstract}}</td>
-                    </tr>
+                <tr>
+                    <td>{{$article->title}}</td>
+                    <td>{{$article->content}}</td>
+                    <td>{{$article->abstract}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

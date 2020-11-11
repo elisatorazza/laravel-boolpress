@@ -86,7 +86,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('admin.articles.edit', compact('article'));
     }
 
     /**
@@ -98,7 +98,27 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $article = $request->all();
+
+        $request->validate([
+            "title" => "required",
+            "slug" => "required|unique:articles",
+            "content" => "required",
+            "image" => "image",
+        ]); 
+
+        $path = Storage::disk('public')->put('images', $article['image']);
+
+        $newArticle = new Article;
+        $newArticle->user_id = Auth::id();
+        $newArticle->title = $article["title"];
+        $newArticle->slug = $article["slug"];
+        $newArticle->content = $article["content"];
+        $newArticle->abstract = $article["abstract"];
+        $newArticle->image = $path;
+        $newArticle->update($article);
+
+        return redirect()->route('admin.article.show', $newArticle);
     }
 
     /**

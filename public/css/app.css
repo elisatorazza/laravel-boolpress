@@ -10903,3 +10903,8 @@ a.text-dark:focus {
   }
 }
 
+img {
+  width: 300px;
+  height: auto;
+}
+
